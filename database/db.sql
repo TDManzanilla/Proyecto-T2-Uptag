@@ -174,8 +174,57 @@ CREATE TABLE grados (
   FOREIGN KEY (nivel_id) REFERENCES niveles (id_nivel) on delete no action on update cascade
 
 )ENGINE=InnoDB;
+
 INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
 VALUES ('1','PRIMER AÑO','A',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','PRIMER AÑO','B',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','PRIMER AÑO','C',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','PRIMER AÑO','D',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','SEGUNDO AÑO','A',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','SEGUNDO AÑO','B',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','SEGUNDO AÑO','C',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','SEGUNDO AÑO','D',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','TERCER AÑO','A',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','TERCER AÑO','B',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','TERCER AÑO','C',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','CUARTO AÑO','A',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','CUARTO AÑO','B',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','CUARTO AÑO','C',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','QUINTO AÑO','A',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','QUINTO AÑO','B',NOW(),'1');
+
+INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
+VALUES ('1','QUINTO AÑO','C',NOW(),'1');
 
 
 CREATE TABLE materias (
@@ -188,5 +237,12 @@ CREATE TABLE materias (
   estado        VARCHAR (11)
 
 )ENGINE=InnoDB;
+
 INSERT INTO materias (nombre_materia,fyh_creacion,estado)
 VALUES ('MATEMÁTICA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('EDUCACION FISICA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('INGLES',NOW(),'1');
