@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HILARIWEB
- * Date: 11/1/2024
- * Time: 17:07
- */
 
 $sql_grados = "SELECT * FROM grados as gra INNER JOIN niveles as niv ON gra.nivel_id = niv.id_nivel 
 where gra.estado = '1' and id_grado = '$id_grado'  ";

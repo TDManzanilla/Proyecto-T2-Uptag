@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HILARIWEB
- * Date: 8/1/2024
- * Time: 20:08
- */
 
 $sql_instituciones = "SELECT * FROM configuracion_instituciones WHERE id_config_institucion = '$id_config_institucion' and estado = '1' ";
 $query_instituciones = $pdo->prepare($sql_instituciones);

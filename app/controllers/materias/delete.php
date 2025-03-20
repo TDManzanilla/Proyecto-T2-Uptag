@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HILARIWEB
- * Date: 4/1/2024
- * Time: 16:04
- */
+
 include ('../../../app/config.php');
 
 $id_materia = $_POST['id_materia'];

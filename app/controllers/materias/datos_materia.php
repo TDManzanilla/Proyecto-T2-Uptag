@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HILARIWEB
- * Date: 14/1/2024
- * Time: 21:00
- */
+
 $sql_materias = "SELECT * FROM materias where estado = '1' and id_materia = '$id_materia'  ";
 $query_materias = $pdo->prepare($sql_materias);
 $query_materias->execute();

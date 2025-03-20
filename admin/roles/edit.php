@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HILARIWEB
- * Date: 3/1/2024
- * Time: 16:07
- */
 $id_rol = $_GET['id'];
 
 include ('../../app/config.php');

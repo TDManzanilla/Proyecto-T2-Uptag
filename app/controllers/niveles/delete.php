@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HILARIWEB
- * Date: 9/1/2024
- * Time: 17:07
- */
+
 include ('../../../app/config.php');
 
 $id_nivel = $_POST['id_nivel'];
