@@ -44,10 +44,15 @@ include ('../../app/controllers/materias/listado_de_materias.php');
                                     <tr>
                                         <td style="text-align: center"><?=$contador_materias;?></td>
                                         <td style="text-align: center;"><?=$materia['nombre_materia'];?></td>
-                                        <td style="text-align: center;">
+                                        <td style="text-align: center">
                                             <?php
-                                            if($materia['estado']=="1") echo "ACTIVO";
-                                            else echo "INACTIVO";
+                                            if($materia['estado'] == "1"){ ?>
+                                                <button class="btn btn-success btn-sm" style="border-radius: 20px">ACTIVO</button>
+                                                <?php
+                                            }else{ ?>
+                                                <button class="btn btn-danger btn-sm" style="border-radius: 20px">INACTIVO</button>
+                                                <?php
+                                            }
                                             ?>
                                         </td>
                                         <td style="text-align: center">

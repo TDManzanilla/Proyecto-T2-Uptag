@@ -185,9 +185,6 @@ INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
 VALUES ('1','PRIMER AÑO','C',NOW(),'1');
 
 INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
-VALUES ('1','PRIMER AÑO','D',NOW(),'1');
-
-INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
 VALUES ('1','SEGUNDO AÑO','A',NOW(),'1');
 
 INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
@@ -239,10 +236,55 @@ CREATE TABLE materias (
 )ENGINE=InnoDB;
 
 INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('ORIENTACION Y CONVIVENCIA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('CASTELLANO',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('INGLES',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
 VALUES ('MATEMÁTICA',NOW(),'1');
 
 INSERT INTO materias (nombre_materia,fyh_creacion,estado)
 VALUES ('EDUCACION FISICA',NOW(),'1');
 
 INSERT INTO materias (nombre_materia,fyh_creacion,estado)
-VALUES ('INGLES',NOW(),'1');
+VALUES ('GEOGRAFIA, HISTORIA Y CIUDADANIA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('ARTE Y PATRIMONIO',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('CIENCIAS NATURALES',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('BIOLOGÍA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('QUÍMICA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('FISICA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('FORMACION PARA LA SOBERANIA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('CIENCIAS DE LA TIERRA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('GRUPO DECREACIÓN, RECREACION Y PARTICIPACION',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('BIOQUÍMICA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('PRACTICA SOCIOLABORAL',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('PROYECTO DE ECONOMÍA',NOW(),'1');
+
+INSERT INTO materias (nombre_materia,fyh_creacion,estado)
+VALUES ('TECNOLOGÍA DE LA SALUD',NOW(),'1');
