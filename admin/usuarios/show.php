@@ -14,12 +14,12 @@ include ('../../app/controllers/usuarios/datos_del_usuario.php');
     <div class="content">
         <div class="container">
             <div class="row">
-                <h1>Usuario: <?=$nombres;?></h1>
+                <h1>Usuario: <?=$email;?></h1>
             </div>
             <br>
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="card card-outline card-info">
                         <div class="card-header">
                             <h3 class="card-title">Datos registrados</h3>
@@ -33,13 +33,6 @@ include ('../../app/controllers/usuarios/datos_del_usuario.php');
                                             <p><?=$nombre_rol;?></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Nombres del usuarios</label>
-                                            <p><?=$nombres;?></p>
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">Email</label>

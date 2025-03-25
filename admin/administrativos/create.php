@@ -11,7 +11,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
     <div class="content">
         <div class="container">
             <div class="row">
-                <h1>Creación de un nuevo administrativo</h1>
+                <h1>Crear un nuevo administrativo</h1>
             </div>
             <br>
             <div class="row">
@@ -74,7 +74,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Profesion</label>
+                                            <label for="">Cargo</label>
                                             <input type="text" name="profesion" class="form-control" required>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Registrar</button>
-                                            <a href="<?=APP_URL;?>/admin/usuarios" class="btn btn-secondary">Cancelar</a>
+                                            <a href="<?=APP_URL;?>/admin/administrativos" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,10 +1,10 @@
 <?php
 
-$id_usuario = $_GET['id'];
+$id_administrativo = $_GET['id'];
 
 include ('../../app/config.php');
 include ('../../admin/layout/parte1.php');
-include ('../../app/controllers/usuarios/datos_del_usuario.php');
+include ('../../app/controllers/administrativos/datos_administrativos.php');
 
 ?>
 
@@ -14,7 +14,7 @@ include ('../../app/controllers/usuarios/datos_del_usuario.php');
     <div class="content">
         <div class="container">
             <div class="row">
-                <h1>Usuario: <?=$nombres;?></h1>
+                <h1><?=$nombres;?></h1>
             </div>
             <br>
             <div class="row">
@@ -27,34 +27,45 @@ include ('../../app/controllers/usuarios/datos_del_usuario.php');
                         <div class="card-body">
 
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Nombre del rol</label>
-                                            <p><?=$nombre_rol;?></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Nombres del usuarios</label>
+                                            <label for="">Nombre(s)</label>
                                             <p><?=$nombres;?></p>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Email</label>
-                                            <p><?=$email;?></p>
+                                            <label for="">Apellido(s)</label>
+                                            <p><?=$apellidos;?></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Cedula de Identidad</label>
+                                            <p><?=$ci;?></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Fecha de Nacimiento</label>
+                                            <p><?=$fecha_nacimiento;?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">Fecha y hora de creación</label>
-                                            <p><?=$fyh_creacion;?></p>
+                                            <label for="">Cargo</label>
+                                            <p><?=$profesion;?></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Correo</label>
+                                            <p><?=$email;?></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Estado</label>
                                             <p>
@@ -62,13 +73,34 @@ include ('../../app/controllers/usuarios/datos_del_usuario.php');
                                             </p>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Rol del Sistema</label>
+                                            <p>
+                                                <?=$nombre_rol?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Celular</label>
+                                            <p><?=$celular;?></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="">Direccion</label>
+                                            <p><?=$direccion;?></p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-
-                                            <a href="<?=APP_URL;?>/admin/usuarios" class="btn btn-secondary">Volver</a>
+                                            <a href="<?=APP_URL;?>/admin/administrativos" class="btn btn-secondary">Volver</a>
                                         </div>
                                     </div>
                                 </div>

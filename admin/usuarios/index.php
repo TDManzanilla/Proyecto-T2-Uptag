@@ -30,10 +30,8 @@ include ('../../app/controllers/usuarios/listado_de_usuarios.php');
                                 <thead>
                                 <tr>
                                     <th><center>Nro</center></th>
-                                    <th><center>Nombres del usuario</center></th>
                                     <th><center>Rol</center></th>
                                     <th><center>Email</center></th>
-                                    <th><center>Fecha de creación</center></th>
                                     <th><center>Estado</center></th>
                                     <th><center>Acciones</center></th>
                                 </tr>
@@ -46,10 +44,9 @@ include ('../../app/controllers/usuarios/listado_de_usuarios.php');
                                     $contador_usuarios = $contador_usuarios +1; ?>
                                     <tr>
                                         <td style="text-align: center"><?=$contador_usuarios;?></td>
-                                        <td><?=$usuario['nombres'];?></td>
+                                     
                                         <td><?=$usuario['nombre_rol'];?></td>
                                         <td><?=$usuario['email'];?></td>
-                                        <td><?=$usuario['fyh_creacion'];?></td>
                                         <td style="text-align: center">
                                             <?php
                                             if($usuario['estado'] == "1"){ ?>

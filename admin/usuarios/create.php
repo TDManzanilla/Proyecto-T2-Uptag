@@ -16,7 +16,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
             <br>
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Llene los datos</h3>
@@ -40,16 +40,10 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Nombres del usuarios</label>
-                                            <input type="text" name="nombres" class="form-control" required>
-                                        </div>
-                                    </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="">Email</label>
+                                            <label for="">Correo</label>
                                             <input type="email" name="email" class="form-control" required>
                                         </div>
                                     </div>
@@ -57,20 +51,20 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="">Passwrod</label>
+                                            <label for="">Contraseña</label>
                                             <input type="password" name="password" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="">Repetir Passwrod</label>
+                                            <label for="">Repetir Contraseña</label>
                                             <input type="password" name="password_repet" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Registrar</button>
                                             <a href="<?=APP_URL;?>/admin/usuarios" class="btn btn-secondary">Cancelar</a>

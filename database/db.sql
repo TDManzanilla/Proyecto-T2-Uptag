@@ -52,7 +52,7 @@ CREATE TABLE personas (
 
 )ENGINE=InnoDB;
 INSERT INTO personas (usuario_id,nombres,apellidos,ci,fecha_nacimiento,profesion,direccion,celular,fyh_creacion,estado)
-VALUES ('1','Dalia Maria','Aular Colina','11767766','19/10/1978','DIRECTORA ACADEMICA','Urb Monseñor Iturriza III Etapa Calle 06 Casa #202','04141691434',NOW(),'1');
+VALUES ('1','DALIOBERT ENRIQUE','TOYO AULAR','27811140','22/11/2000','ESTUDIANTE UPTAG','Urb Monseñor Iturriza III Etapa Calle 06 Casa #202','04120868498',NOW(),'1');
 
 CREATE TABLE administrativos (
 
