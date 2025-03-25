@@ -83,13 +83,13 @@ include ('../../app/controllers/administrativos/datos_administrativos.php');
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Celular</label>
                                             <p><?=$celular;?></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="">Direccion</label>
                                             <p><?=$direccion;?></p>

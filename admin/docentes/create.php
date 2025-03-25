@@ -22,7 +22,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                             <h3 class="card-title">Llene los datos</h3>
                         </div>
                         <div class="card-body">
-                            <form action="<?=APP_URL;?>/app/controllers/administrativos/create.php" method="post">
+                            <form action="<?=APP_URL;?>/app/controllers/docentes/create.php" method="post">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -99,7 +99,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Registrar</button>
-                                            <a href="<?=APP_URL;?>/admin/administrativos" class="btn btn-secondary">Cancelar</a>
+                                            <a href="<?=APP_URL;?>/admin/docentes" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

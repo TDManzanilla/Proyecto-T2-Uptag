@@ -1,10 +1,10 @@
 <?php
 
-$id_administrativo = $_GET['id'];
+$id_docente = $_GET['id'];
 
 include ('../../app/config.php');
 include ('../../admin/layout/parte1.php');
-include ('../../app/controllers/administrativos/datos_administrativos.php');
+include ('../../app/controllers/docentes/datos_docente.php');
 include ('../../app/controllers/roles/listado_de_roles.php');
 
 ?>
@@ -15,7 +15,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
     <div class="content">
         <div class="container">
             <div class="row">
-                <h1>Personal Administrativo: <?=$nombres;?></h1>
+                <h1>Personal Docente: <?=$nombres;?></h1>
             </div>
             <br>
             <div class="row">
@@ -26,8 +26,8 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                             <h3 class="card-title">Llene los datos</h3>
                         </div>
                         <div class="card-body">
-                            <form action="<?=APP_URL;?>/app/controllers/administrativos/update.php" method="post">
-                                <imput type="hidden" name="id_administrativo" value="<?=$id_administrativo;?>">
+                            <form action="<?=APP_URL;?>/app/controllers/docentes/update.php" method="post">
+                                <input type="hidden" name="id_docente" value="<?=$id_docente;?>">
                                 <input type="hidden" name="id_persona" value="<?=$id_persona;?>">
                                 <input type="hidden" name="id_usuario" value="<?=$id_usuario;?>">
                                 <div class="row">
@@ -106,7 +106,7 @@ include ('../../app/controllers/roles/listado_de_roles.php');
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success">Actualizar</button>
-                                            <a href="<?=APP_URL;?>/admin/administrativos" class="btn btn-secondary">Cancelar</a>
+                                            <a href="<?=APP_URL;?>/admin/docentes" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

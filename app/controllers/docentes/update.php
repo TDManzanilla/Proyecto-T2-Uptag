@@ -13,8 +13,7 @@ $celular = $_POST['celular'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $id_persona = $_POST['id_persona'];
 $id_usuario = $_POST['id_usuario'];
-$id_administrativo = $_POST['id_administrativo']; // Asegúrate de recibir este valor
-
+$id_docente = $_POST['id_docente']; // Asegúrate de recibir este valor
 
 $pdo->beginTransaction();
 
@@ -47,20 +46,20 @@ try {
     $sentencia->bindParam(':id_persona', $id_persona);
     $sentencia->execute();
 
-    // Actualizar en administrativos
-    $sentencia = $pdo->prepare('UPDATE administrativos 
+    // Actualizar en docentes
+    $sentencia = $pdo->prepare('UPDATE docentes 
         SET fyh_actualizacion = :fyh_actualizacion
-        WHERE id_administrativo = :id_administrativo');
+        WHERE id_docente = :id_docente');
     $sentencia->bindParam(':fyh_actualizacion', $fechaHora);
-    $sentencia->bindParam(':id_administrativo', $id_administrativo);
+    $sentencia->bindParam(':id_docente', $id_docente);
     $sentencia->execute();
 
     // Confirmar transacción
     $pdo->commit();
     session_start();
-    $_SESSION['mensaje'] = "Se actualizó al administrativo de la manera correcta en la base de datos";
+    $_SESSION['mensaje'] = "Se actualizó al docente de la manera correcta en la base de datos";
     $_SESSION['icono'] = "success";
-    header('Location:' . APP_URL . "/admin/administrativos");
+    header('Location:' . APP_URL . "/admin/docentes");
 } catch (Exception $exception) {
     // Revertir transacción en caso de error
     $pdo->rollBack();

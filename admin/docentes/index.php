@@ -41,7 +41,7 @@ include ('../../app/controllers/docentes/listado_de_docentes.php');
                                 $contador_docentes = 0;
                                 foreach ($docentes as $docente){
                                     $id_docente = $docente['id_docente'];
-                                    $contador_docentes = $contador_docentes +1; ?>
+                                    $contador_docentes++; ?>
                                     <tr>
                                         <td style="text-align: center"><?=$contador_docentes;?></td>
                                         <td><?=$docente['nombres'];?></td>
@@ -62,30 +62,6 @@ include ('../../app/controllers/docentes/listado_de_docentes.php');
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="show.php?id=<?=$id_docente;?>" type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
                                                 <a href="edit.php?id=<?=$id_docente;?>" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
-                                                <!--<form action="<?=APP_URL;?>/app/controllers/docentes/delete.php" onclick="preguntar<?=$id_docente;?>(event)" method="post" id="miFormulario<?=$id_usuario;?>">
-                                                    <input type="text" name="id_docente" value="<?=$id_docente;?>" hidden>
-                                                    <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 0px 5px 5px 0px"><i class="bi bi-trash"></i></button>
-                                                </form>
-                                                <script>
-                                                    function preguntar<?=$id_docente;?>(event) {
-                                                        event.preventDefault();
-                                                        Swal.fire({
-                                                            title: 'Eliminar registro',
-                                                            text: '¿Desea eliminar este registro?',
-                                                            icon: 'question',
-                                                            showDenyButton: true,
-                                                            confirmButtonText: 'Eliminar',
-                                                            confirmButtonColor: '#a5161d',
-                                                            denyButtonColor: '#270a0a',
-                                                            denyButtonText: 'Cancelar',
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                var form = $('#miFormulario<?=$id_docente;?>');
-                                                                form.submit();
-                                                            }
-                                                        });
-                                                    }
-                                                </script>-->
                                             </div>
                                         </td>
                                     </tr>

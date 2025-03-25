@@ -1,10 +1,10 @@
 <?php
 
-echo $id_administrativo = $_GET['id'];
+echo $id_docente = $_GET['id'];
 
 include ('../../app/config.php');
 include ('../../admin/layout/parte1.php');
-include ('../../app/controllers/administrativos/datos_administrativos.php');
+include ('../../app/controllers/docentes/datos_docente.php');
 
 ?>
 
@@ -83,13 +83,13 @@ include ('../../app/controllers/administrativos/datos_administrativos.php');
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Celular</label>
                                             <p><?=$celular;?></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="">Direccion</label>
                                             <p><?=$direccion;?></p>
@@ -100,7 +100,7 @@ include ('../../app/controllers/administrativos/datos_administrativos.php');
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <a href="<?=APP_URL;?>/admin/administrativos" class="btn btn-secondary">Volver</a>
+                                            <a href="<?=APP_URL;?>/admin/docentes" class="btn btn-secondary">Volver</a>
                                         </div>
                                     </div>
                                 </div>
