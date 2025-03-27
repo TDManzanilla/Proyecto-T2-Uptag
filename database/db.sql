@@ -13,6 +13,7 @@ INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('ADMINISTRADOR',NOW(
 INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('DIRECTIVO',NOW(),'1');
 INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('PERSONAL CDE',NOW(),'1');
 INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('DOCENTE',NOW(),'1');
+INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('ESTUDIANTE',NOW(),'1');
 
 CREATE TABLE usuarios (
 
@@ -81,34 +82,6 @@ CREATE TABLE docentes (
   FOREIGN KEY (persona_id) REFERENCES personas (id_persona) on delete no action on update cascade
 
 )ENGINE=InnoDB;
-
-CREATE TABLE estudiantes (
-
-  id_estudiante             INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  persona_id             INT (11) NOT NULL,
-
-  fyh_creacion   DATETIME NULL,
-  fyh_actualizacion DATETIME NULL,
-  estado        VARCHAR (11),
-
-  FOREIGN KEY (persona_id) REFERENCES personas (id_persona) on delete no action on update cascade
-
-)ENGINE=InnoDB;
-
-CREATE TABLE ppffs (
-
-  id_ppff             INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  persona_id             INT (11) NOT NULL,
-
-  fyh_creacion   DATETIME NULL,
-  fyh_actualizacion DATETIME NULL,
-  estado        VARCHAR (11),
-
-  FOREIGN KEY (persona_id) REFERENCES personas (id_persona) on delete no action on update cascade
-
-)ENGINE=InnoDB;
-
-
 
 CREATE TABLE configuracion_instituciones (
 
@@ -223,6 +196,44 @@ VALUES ('1','QUINTO AÑO','B',NOW(),'1');
 INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
 VALUES ('1','QUINTO AÑO','C',NOW(),'1');
 
+CREATE TABLE estudiantes (
+
+  id_estudiante          INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  persona_id             INT (11) NOT NULL,
+  nivel_id               INT (11) NOT NULL,
+  grado_id               INT (11) NOT NULL,
+
+  fyh_creacion   DATETIME NULL,
+  fyh_actualizacion DATETIME NULL,
+  estado        VARCHAR (11),
+
+  FOREIGN KEY (persona_id) REFERENCES personas (id_persona) on delete no action on update cascade,
+  FOREIGN KEY (nivel_id) REFERENCES niveles (id_nivel) on delete no action on update cascade,
+  FOREIGN KEY (grado_id) REFERENCES grados (id_grado) on delete no action on update cascade
+
+)ENGINE=InnoDB;
+
+CREATE TABLE ppffs (
+
+  id_ppff                        INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  estudiantes_id                 INT (11) NOT NULL,
+
+  nombres_apellidos_ppff         VARCHAR (255) NOT NULL,
+  ci_ppff                        VARCHAR (20) NOT NULL,
+  celular_ppff                   VARCHAR (20) NOT NULL,
+  direccion_ppff                 VARCHAR (255) NOT NULL,
+  parentesco_ppff                VARCHAR (255) NOT NULL,
+  ref_nombre_apellido_ppff       VARCHAR (255) NOT NULL,
+  ref_celular_ppff               VARCHAR (20) NOT NULL,
+  ref_parentesco_ppff            VARCHAR (255) NOT NULL,
+
+  fyh_creacion   DATETIME NULL,
+  fyh_actualizacion DATETIME NULL,
+  estado        VARCHAR (11),
+
+  FOREIGN KEY (estudiantes_id) REFERENCES estudiantes (id_estudiante) on delete no action on update cascade
+
+)ENGINE=InnoDB;
 
 CREATE TABLE materias (
 
