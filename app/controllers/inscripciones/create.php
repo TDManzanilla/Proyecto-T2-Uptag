@@ -52,6 +52,39 @@ try {
         exit;
     }
 
+    // Validar que al menos uno de los conjuntos esté completo
+    if (empty($_POST['nombres_apellidos_padre']) && empty($_POST['nombres_apellidos_madre']) && empty($_POST['nombres_apellido_otros'])) {
+        session_start();
+        $_SESSION['mensaje'] = "Debe llenar al menos uno de los conjuntos: Padre, Madre u Otro parentesco.";
+        $_SESSION['icono'] = "error";
+        ?><script>window.history.back();</script><?php
+        exit;
+    }
+
+    // Validar que el representante seleccionado tenga datos válidos
+    $representante_institucion = $_POST['representante_institucion'];
+    if ($representante_institucion === 'padre' && empty($_POST['nombres_apellidos_padre'])) {
+        session_start();
+        $_SESSION['mensaje'] = "El representante seleccionado (Padre) no tiene datos válidos.";
+        $_SESSION['icono'] = "error";
+        ?><script>window.history.back();</script><?php
+        exit;
+    }
+    if ($representante_institucion === 'madre' && empty($_POST['nombres_apellidos_madre'])) {
+        session_start();
+        $_SESSION['mensaje'] = "El representante seleccionado (Madre) no tiene datos válidos.";
+        $_SESSION['icono'] = "error";
+        ?><script>window.history.back();</script><?php
+        exit;
+    }
+    if ($representante_institucion === 'otro' && empty($_POST['nombres_apellido_otros'])) {
+        session_start();
+        $_SESSION['mensaje'] = "El representante seleccionado (Otro) no tiene datos válidos.";
+        $_SESSION['icono'] = "error";
+        ?><script>window.history.back();</script><?php
+        exit;
+    }
+
     // Iniciar transacción
     $pdo->beginTransaction();
 
@@ -94,18 +127,51 @@ try {
     $sentencia->execute();
     $id_estudiante = $pdo->lastInsertId();
 
-    // Insertar en la tabla ppffs (representantes)
-    $sentencia = $pdo->prepare('INSERT INTO ppffs (estudiantes_id, nombres_apellidos_ppff, ci_ppff, celular_ppff, direccion_ppff, parentesco_ppff, ref_nombre_apellido_ppff, ref_celular_ppff, ref_parentesco_ppff, fyh_creacion, estado) 
-                                VALUES (:estudiantes_id, :nombres_apellidos_ppff, :ci_ppff, :celular_ppff, :direccion_ppff, :parentesco_ppff, :ref_nombre_apellido_ppff, :ref_celular_ppff, :ref_parentesco_ppff, :fyh_creacion, :estado)');
+    // Insertar en la tabla nucleo_familiar
+    $sentencia = $pdo->prepare('INSERT INTO nucleo_familiar (
+        nuclestudiante_id, nombres_apellidos_padre, ci_padre, celular_padre, direccion_padre, profesion_padre,
+        nombres_apellidos_madre, ci_madre, celular_madre, direccion_madre, profesion_madre,
+        nombres_apellido_otros, ci_otros, celular_otros, direccion_otros, profesion_otros, parentesco_otros, estado, fyh_creacion
+    ) VALUES (
+        :nuclestudiante_id, :nombres_apellidos_padre, :ci_padre, :celular_padre, :direccion_padre, :profesion_padre,
+        :nombres_apellidos_madre, :ci_madre, :celular_madre, :direccion_madre, :profesion_madre,
+        :nombres_apellido_otros, :ci_otros, :celular_otros, :direccion_otros, :profesion_otros, :parentesco_otros, :estado, :fyh_creacion
+    )');
+    $sentencia->bindParam(':nuclestudiante_id', $id_estudiante);
+    $sentencia->bindParam(':nombres_apellidos_padre', $_POST['nombres_apellidos_padre']);
+    $sentencia->bindParam(':ci_padre', $_POST['ci_padre']);
+    $sentencia->bindParam(':celular_padre', $_POST['celular_padre']);
+    $sentencia->bindParam(':direccion_padre', $_POST['direccion_padre']);
+    $sentencia->bindParam(':profesion_padre', $_POST['profesion_padre']);
+    $sentencia->bindParam(':nombres_apellidos_madre', $_POST['nombres_apellidos_madre']);
+    $sentencia->bindParam(':ci_madre', $_POST['ci_madre']);
+    $sentencia->bindParam(':celular_madre', $_POST['celular_madre']);
+    $sentencia->bindParam(':direccion_madre', $_POST['direccion_madre']);
+    $sentencia->bindParam(':profesion_madre', $_POST['profesion_madre']);
+    $sentencia->bindParam(':nombres_apellido_otros', $_POST['nombres_apellido_otros']);
+    $sentencia->bindParam(':ci_otros', $_POST['ci_otros']);
+    $sentencia->bindParam(':celular_otros', $_POST['celular_otros']);
+    $sentencia->bindParam(':direccion_otros', $_POST['direccion_otros']);
+    $sentencia->bindParam(':profesion_otros', $_POST['profesion_otros']);
+    $sentencia->bindParam(':parentesco_otros', $_POST['parentesco_otros']);
+    $sentencia->bindParam(':estado', $estado_de_registro);
+    $sentencia->bindParam(':fyh_creacion', $fechaHora);
+    $sentencia->execute();
+    $id_nucleo_familiar = $pdo->lastInsertId();
+
+    // Determinar el representante
+    $parentesco_nucleo = 0; // Por defecto, madre
+    if ($_POST['representante_institucion'] === 'padre') {
+        $parentesco_nucleo = 1;
+    } elseif ($_POST['representante_institucion'] === 'otro') {
+        $parentesco_nucleo = 2; // Otro
+    }
+
+    // Insertar en la tabla ppffs
+    $sentencia = $pdo->prepare('INSERT INTO ppffs (estudiantes_id, parentesco_nucleo, fyh_creacion, estado) 
+                                VALUES (:estudiantes_id, :parentesco_nucleo, :fyh_creacion, :estado)');
     $sentencia->bindParam(':estudiantes_id', $id_estudiante);
-    $sentencia->bindParam(':nombres_apellidos_ppff', $nombres_apellidos_ppff);
-    $sentencia->bindParam(':ci_ppff', $ci_ppff);
-    $sentencia->bindParam(':celular_ppff', $celular_ppff);
-    $sentencia->bindParam(':direccion_ppff', $direccion_ppff);
-    $sentencia->bindParam(':parentesco_ppff', $parentesco_ppff);
-    $sentencia->bindParam(':ref_nombre_apellido_ppff', $ref_nombre_apellido_ppff);
-    $sentencia->bindParam(':ref_celular_ppff', $ref_celular_ppff);
-    $sentencia->bindParam(':ref_parentesco_ppff', $ref_parentesco_ppff);
+    $sentencia->bindParam(':parentesco_nucleo', $parentesco_nucleo);
     $sentencia->bindParam(':fyh_creacion', $fechaHora);
     $sentencia->bindParam(':estado', $estado_de_registro);
     $sentencia->execute();

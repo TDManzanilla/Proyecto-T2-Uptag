@@ -38,19 +38,17 @@ unset($_SESSION['imported_data']); // Limpiar los datos después de usarlos
                         <!-- Select para Nivel -->
                         <div class="form-group mt-3">
                             <label for="nivel_id">Nivel</label>
-                            <select name="nivel_id" id="nivel_id" class="form-control" required>
+                            <select name="nivel_id" id="nivel_id" class="form-control" onchange="filtrarGrados()" required>
                                 <option value="">Seleccione un nivel</option>
                                 <?php
-                                // Extraer niveles únicos de los grados
-                                $nivelesUnicos = [];
+                                $nivelesVistos = [];
                                 foreach ($grados as $grado) {
-                                    if (!isset($nivelesUnicos[$grado['id_nivel']])) {
-                                        $nivelesUnicos[$grado['id_nivel']] = $grado['nivel'];
-                                    }
+                                    if (!in_array($grado['nivel'] . '-' . $grado['turno'], $nivelesVistos)) {
+                                        $nivelesVistos[] = $grado['nivel'] . '-' . $grado['turno']; ?>
+                                        <option value="<?=$grado['id_nivel'];?>"><?=$grado['nivel']." - ".$grado['turno']?></option>
+                                    <?php }
                                 }
-                                foreach ($nivelesUnicos as $idNivel => $nombreNivel): ?>
-                                    <option value="<?= $idNivel ?>"><?= $nombreNivel ?></option>
-                                <?php endforeach; ?>
+                                ?>
                             </select>
                         </div>
 
@@ -60,8 +58,8 @@ unset($_SESSION['imported_data']); // Limpiar los datos después de usarlos
                             <select name="grado_id" id="grado_id" class="form-control" required>
                                 <option value="">Seleccione un grado</option>
                                 <?php foreach ($grados as $grado): ?>
-                                    <option value="<?= $grado['id_grado'] ?>">
-                                        <?= $grado['curso'] . ' - ' . $grado['paralelo'] ?>
+                                    <option value="<?=$grado['id_grado'];?>" data-nivel="<?=$grado['id_nivel'];?>">
+                                        <?=$grado['curso']." - ".$grado['paralelo']?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -226,6 +224,24 @@ unset($_SESSION['imported_data']); // Limpiar los datos después de usarlos
         link.click();
         document.body.removeChild(link);
     });
+
+    function filtrarGrados() {
+        const nivelId = document.getElementById('nivel_id').value;
+        const gradoSelect = document.getElementById('grado_id');
+        const opciones = gradoSelect.querySelectorAll('option');
+
+        opciones.forEach(opcion => {
+            if (opcion.value === "") {
+                opcion.style.display = "block"; // Mostrar la opción "Seleccione un grado"
+            } else if (opcion.getAttribute('data-nivel') === nivelId) {
+                opcion.style.display = "block"; // Mostrar grados del nivel seleccionado
+            } else {
+                opcion.style.display = "none"; // Ocultar grados de otros niveles
+            }
+        });
+
+        gradoSelect.value = ""; // Reiniciar selección de grados
+    }
 </script>
 
 <?php

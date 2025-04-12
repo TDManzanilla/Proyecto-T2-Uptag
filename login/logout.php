@@ -1,10 +1,6 @@
 <?php
-
-include ('../app/config.php');
-
 session_start();
-
-if(isset($_SESSION['sesion_email'])){
-    session_destroy();
-    header('Location: '.APP_URL.'/login');
-}
+include ('../app/config.php');
+session_unset();
+session_destroy();
+header('Location: '.APP_URL.'/login');

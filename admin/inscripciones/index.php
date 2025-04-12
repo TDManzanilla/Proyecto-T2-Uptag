@@ -25,7 +25,7 @@ include ('../../admin/layout/parte1.php');
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 col-12">
+                <!--<div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-success"><i class="bi bi-people"></i></span>
                         <div class="info-box-content">
@@ -33,7 +33,7 @@ include ('../../admin/layout/parte1.php');
                             <a href="multicreate.php" class="btn btn-success btn-sm">Registro por lotes</a>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->

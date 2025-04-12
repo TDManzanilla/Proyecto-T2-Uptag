@@ -65,6 +65,73 @@ try {
         $sentencia->bindParam(':fyh_creacion', $fechaHora);
         $sentencia->bindParam(':estado', $estado_de_registro);
         $sentencia->execute();
+        $id_estudiante = $pdo->lastInsertId();
+
+        // Validar que al menos uno de los conjuntos esté completo
+        if (empty($student['nombres_apellidos_padre']) && empty($student['nombres_apellidos_madre']) && empty($student['nombres_apellido_otros'])) {
+            throw new Exception("Debe llenar al menos uno de los conjuntos: Padre, Madre u Otro parentesco para el estudiante con CI {$student['ci']}.");
+        }
+
+        // Validar que el representante seleccionado tenga datos válidos
+        $representante_institucion = $student['representante_institucion'];
+        if ($representante_institucion === 'padre' && empty($student['nombres_apellidos_padre'])) {
+            throw new Exception("El representante seleccionado (Padre) no tiene datos válidos para el estudiante con CI {$student['ci']}.");
+        }
+        if ($representante_institucion === 'madre' && empty($student['nombres_apellidos_madre'])) {
+            throw new Exception("El representante seleccionado (Madre) no tiene datos válidos para el estudiante con CI {$student['ci']}.");
+        }
+        if ($representante_institucion === 'otro' && empty($student['nombres_apellido_otros'])) {
+            throw new Exception("El representante seleccionado (Otro) no tiene datos válidos para el estudiante con CI {$student['ci']}.");
+        }
+
+        // Insertar en la tabla nucleo_familiar
+        $sentencia = $pdo->prepare('INSERT INTO nucleo_familiar (
+            nuclestudiante_id, nombres_apellidos_padre, ci_padre, celular_padre, direccion_padre, profesion_padre,
+            nombres_apellidos_madre, ci_madre, celular_madre, direccion_madre, profesion_madre,
+            nombres_apellido_otros, ci_otros, celular_otros, direccion_otros, profesion_otros, parentesco_otros, estado
+        ) VALUES (
+            :nuclestudiante_id, :nombres_apellidos_padre, :ci_padre, :celular_padre, :direccion_padre, :profesion_padre,
+            :nombres_apellidos_madre, :ci_madre, :celular_madre, :direccion_madre, :profesion_madre,
+            :nombres_apellido_otros, :ci_otros, :celular_otros, :direccion_otros, :profesion_otros, :parentesco_otros, :estado
+        )');
+        $sentencia->bindParam(':nuclestudiante_id', $id_estudiante);
+        $sentencia->bindParam(':nombres_apellidos_padre', $student['nombres_apellidos_padre']);
+        $sentencia->bindParam(':ci_padre', $student['ci_padre']);
+        $sentencia->bindParam(':celular_padre', $student['celular_padre']);
+        $sentencia->bindParam(':direccion_padre', $student['direccion_padre']);
+        $sentencia->bindParam(':profesion_padre', $student['profesion_padre']);
+        $sentencia->bindParam(':nombres_apellidos_madre', $student['nombres_apellidos_madre']);
+        $sentencia->bindParam(':ci_madre', $student['ci_madre']);
+        $sentencia->bindParam(':celular_madre', $student['celular_madre']);
+        $sentencia->bindParam(':direccion_madre', $student['direccion_madre']);
+        $sentencia->bindParam(':profesion_madre', $student['profesion_madre']);
+        $sentencia->bindParam(':nombres_apellido_otros', $student['nombres_apellido_otros']);
+        $sentencia->bindParam(':ci_otros', $student['ci_otros']);
+        $sentencia->bindParam(':celular_otros', $student['celular_otros']);
+        $sentencia->bindParam(':direccion_otros', $student['direccion_otros']);
+        $sentencia->bindParam(':profesion_otros', $student['profesion_otros']);
+        $sentencia->bindParam(':parentesco_otros', $student['parentesco_otros']);
+        $sentencia->bindParam(':estado', $estado_de_registro);
+        $sentencia->execute();
+        $id_nucleo_familiar = $pdo->lastInsertId();
+
+        // Determinar el representante
+        $parentesco_nucleo = 0; // Por defecto, madre
+        if ($student['representante_institucion'] === 'padre') {
+            $parentesco_nucleo = 1;
+        } elseif ($student['representante_institucion'] === 'otro') {
+            $parentesco_nucleo = 2; // Otro
+        }
+
+        // Insertar en la tabla ppffs
+        $sentencia = $pdo->prepare('INSERT INTO ppffs (estudiantes_id, nucleo_familiar_id, parentesco_nucleo, fyh_creacion, estado) 
+                                    VALUES (:estudiantes_id, :nucleo_familiar_id, :parentesco_nucleo, :fyh_creacion, :estado)');
+        $sentencia->bindParam(':estudiantes_id', $id_estudiante);
+        $sentencia->bindParam(':nucleo_familiar_id', $id_nucleo_familiar);
+        $sentencia->bindParam(':parentesco_nucleo', $parentesco_nucleo);
+        $sentencia->bindParam(':fyh_creacion', $fechaHora);
+        $sentencia->bindParam(':estado', $estado_de_registro);
+        $sentencia->execute();
     }
 
     $pdo->commit();

@@ -15,7 +15,18 @@
         V. 1.0.
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; <?=$ano_actual;?> <a href="https://hilariweb.com">Hilari Web</a>.</strong> All rights reserved.
+    <strong id="datetime"><?php echo $fechahora; ?> <a>UPTAG</a></strong>
+
+    <script>
+      function updateDateTime() {
+        var now = new Date();
+        var formattedDateTime = now.toLocaleString();
+        document.getElementById('datetime').innerHTML = formattedDateTime + ' <a>UPTAG</a>';
+      }
+
+      setInterval(updateDateTime, 1000); // Update every second
+      updateDateTime(); // Initial call to set the current time immediately
+    </script>
 </footer>
 </div>
 <!-- ./wrapper -->

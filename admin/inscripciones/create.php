@@ -116,11 +116,15 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                         <div class="form-group">
                                             <label for="">Niveles</label>
                                             <div class="form-inline">
-                                                <select name="nivel_id" id="" class="form-control">
+                                                <select name="nivel_id" id="nivel_id" class="form-control" onchange="filtrarGrados()" required>
+                                                    <option value="">Seleccione un nivel</option>
                                                     <?php
-                                                    foreach ($grados as $grado){ ?>
-                                                        <option value="<?=$grado['id_nivel'];?>"><?=$grado['nivel']." - ".$grado['turno']?></option>
-                                                        <?php
+                                                    $nivelesVistos = [];
+                                                    foreach ($grados as $grado) {
+                                                        if (!in_array($grado['nivel'] . '-' . $grado['turno'], $nivelesVistos)) {
+                                                            $nivelesVistos[] = $grado['nivel'] . '-' . $grado['turno']; ?>
+                                                            <option value="<?=$grado['id_nivel'];?>"><?=$grado['nivel']." - ".$grado['turno']?></option>
+                                                        <?php }
                                                     }
                                                     ?>
                                                 </select>
@@ -131,13 +135,13 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                         <div class="form-group">
                                             <label for="">Grados</label>
                                             <div class="form-inline">
-                                                <select name="grado_id" id="" class="form-control">
-                                                    <?php
-                                                    foreach ($grados as $grado){ ?>
-                                                        <option value="<?=$grado['id_grado'];?>"><?=$grado['curso']." - ".$grado['paralelo']?></option>
-                                                        <?php
-                                                    }
-                                                    ?>
+                                                <select name="grado_id" id="grado_id" class="form-control" required>
+                                                    <option value="">Seleccione un grado</option>
+                                                    <?php foreach ($grados as $grado): ?>
+                                                        <option value="<?=$grado['id_grado'];?>" data-nivel="<?=$grado['id_nivel'];?>">
+                                                            <?=$grado['curso']." - ".$grado['paralelo']?>
+                                                        </option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -153,23 +157,25 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                 <h3 class="card-title">Llene los datos del representante</h3>
                             </div>
                             <div class="card-body">
+                                <!-- DATOS DEL PADRE -->
+                                <h4>DATOS DEL PADRE</h4>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">Nombres y Apellidos</label>
-                                            <input type="text" name="nombres_apellidos_ppff" class="form-control" required>
+                                            <input type="text" name="nombres_apellidos_padre" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">Cedula de Identidad</label>
-                                            <input type="text" name="ci_ppff" class="form-control" required>
+                                            <input type="text" name="ci_padre" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">Celular</label>
-                                            <input type="number" name="celular_ppff" class="form-control" required>
+                                            <input type="number" name="celular_padre" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -177,37 +183,124 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Dirección</label>
-                                            <input type="text" name="direccion_ppff" class="form-control" required>
+                                            <input type="text" name="direccion_padre" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Parentesco</label>
-                                            <input type="text" name="parentesco_ppff" class="form-control" required>
+                                            <label for="">Profesión</label>
+                                            <input type="text" name="profesion_padre" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                <h3 class="card-title">Otro contacto de referencia</h3>
-                                <br>
+                                <hr>
+
+                                <!-- DATOS DE LA MADRE -->
+                                <h4>DATOS DE LA MADRE</h4>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="">Nombre y Apellido</label>
-                                            <input type="text" name="ref_nombre_apellido_ppff" class="form-control" required>
+                                            <label for="">Nombres y Apellidos</label>
+                                            <input type="text" name="nombres_apellidos_madre" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Cedula de Identidad</label>
+                                            <input type="text" name="ci_madre" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">Celular</label>
-                                            <input type="number" name="ref_celular_ppff" class="form-control" required>
+                                            <input type="number" name="celular_madre" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Parentesco</label>
-                                            <input type="text" name="ref_parentesco_ppff" class="form-control" required>
+                                            <label for="">Dirección</label>
+                                            <input type="text" name="direccion_madre" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Profesión</label>
+                                            <input type="text" name="profesion_madre" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <!-- OTRO PARENTESCO FAMILIAR -->
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="otroParentescoCheckbox">
+                                    <label class="form-check-label" for="otroParentescoCheckbox">Otro parentesco familiar</label>
+                                </div>
+                                <div id="otroParentescoForm" style="display: none;">
+                                    <h4>OTRO PARENTESCO FAMILIAR</h4>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="">Nombres y Apellidos</label>
+                                                <input type="text" name="nombres_apellido_otros" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="">Cedula de Identidad</label>
+                                                <input type="text" name="ci_otros" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="">Celular</label>
+                                                <input type="number" name="celular_otros" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Dirección</label>
+                                                <input type="text" name="direccion_otros" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Profesión</label>
+                                                <input type="text" name="profesion_otros" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="parentesco_otros">Tipo de Parentesco</label>
+                                        <select name="parentesco_otros" id="parentesco_otros" class="form-control">
+                                            <option value="">Seleccione</option>
+                                            <option value="abuelo">Abuelo</option>
+                                            <option value="abuela">Abuela</option>
+                                            <option value="tio">Tío</option>
+                                            <option value="tia">Tía</option>
+                                            <option value="otros">Otros</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="parentescoEspecificar" style="display: none;">
+                                        <label for="">Especificar Parentesco</label>
+                                        <input type="text" name="parentesco_especificar" class="form-control">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <!-- REPRESENTANTE EN LA INSTITUCIÓN -->
+                                <h4>Representante en la institución</h4>
+                                <div class="form-group">
+                                    <select name="representante_institucion" class="form-control" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="madre">Madre</option>
+                                        <option value="padre">Padre</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -225,6 +318,38 @@ include ('../../app/controllers/grados/listado_de_grados.php')
     </div>
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+    // Mostrar/Ocultar formulario de otro parentesco familiar
+    document.getElementById('otroParentescoCheckbox').addEventListener('change', function () {
+        const form = document.getElementById('otroParentescoForm');
+        form.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Habilitar/Deshabilitar campo de especificar parentesco
+    document.getElementById('parentesco_otros').addEventListener('change', function () {
+        const especificar = document.getElementById('parentescoEspecificar');
+        especificar.style.display = this.value === 'otros' ? 'block' : 'none';
+    });
+
+    function filtrarGrados() {
+        const nivelId = document.getElementById('nivel_id').value;
+        const gradoSelect = document.getElementById('grado_id');
+        const opciones = gradoSelect.querySelectorAll('option');
+
+        opciones.forEach(opcion => {
+            if (opcion.value === "") {
+                opcion.style.display = "block"; // Mostrar la opción "Seleccione un grado"
+            } else if (opcion.getAttribute('data-nivel') === nivelId) {
+                opcion.style.display = "block"; // Mostrar grados del nivel seleccionado
+            } else {
+                opcion.style.display = "none"; // Ocultar grados de otros niveles
+            }
+        });
+
+        gradoSelect.value = ""; // Reiniciar selección de grados
+    }
+</script>
 
 <?php
 

@@ -31,6 +31,6 @@ $ano_actual = date('Y');
 
 $estado_de_registro = '1';
 
-require APP_PATH.'vendor/autoload.php';
+//require APP_PATH.'vendor/autoload.php';
 
 

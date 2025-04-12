@@ -1,34 +1,42 @@
 <?php
-
 include ('../app/config.php');
-
-$email = $_POST['email'];
+session_start();
+$email_log = $_POST['email'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM usuarios WHERE email = '$email' AND estado = '1' ";
+// Guardar los valores del formulario en la sesión
+$_SESSION['form_email'] = $email_log;
+
+$sql = "SELECT * FROM usuarios WHERE email = :email";
 $query = $pdo->prepare($sql);
-$query->execute();
+$query->execute([':email' => $email_log]);
 
-$usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
-//print_r($usuarios);
+$user = $query->fetch(PDO::FETCH_ASSOC);
 
-$contador = 0;
-
-foreach ($usuarios as $usuario){
-    $password_tabla = $usuario['password'];
-    $contador = $contador +1;
+if (!$user) {
+    $_SESSION['mensaje'] = 'El correo electrónico no se encuentra en el sistema.';
+    $_SESSION['icono'] = 'error';
+    ?><script>window.history.back();</script><?php
+    exit();
+} else {
+    if ($user['estado'] != '1') {
+        $_SESSION['mensaje'] = 'Su cuenta ha sido desactivada. Comuníquese con un administrador.';
+        $_SESSION['icono'] = 'error';
+        header('Location: ' . APP_URL . 'login/index.php');
+        exit();
+    }elseif (password_verify($password, $user['password'])) {
+        // Limpiar los valores del formulario de la sesión
+        unset($_SESSION['form_email']);
+        $_SESSION['mensaje'] = 'Bienvenido al sistema!';
+        $_SESSION['icono'] = 'success';
+        $_SESSION['sesion_email'] = $email_log;
+        header('Location:../admin/index.php');
+        exit();
+    } else {
+        $_SESSION['mensaje'] = 'La contraseña ingresada es incorrecta.';
+        $_SESSION['icono'] = 'error';
+        ?><script>window.history.back();</script><?php
+        exit();
+    }
 }
-
-if( ($contador>0) && (password_verify($password,$password_tabla)) ){
-    echo "los datos son correctos";
-    session_start();
-    $_SESSION['mensaje'] = "Bienvenido al sistema";
-    $_SESSION['icono'] = "success";
-    $_SESSION['sesion_email'] = $email;
-    header('Location:'.APP_URL."/admin");
-}else{
-    echo "los datos son incorrectos";
-    session_start();
-    $_SESSION['mensaje'] = "Los datos introducidos son incorrectos, vuelva a intentarlo";
-    header('Location:'.APP_URL."/login");
-}
+?>

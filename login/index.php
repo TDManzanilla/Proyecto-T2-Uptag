@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include ('../app/config.php');
 ?>
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ include ('../app/config.php');
              width="150px" alt=""><br><br>
     </center>
     <div class="login-logo">
-        <h3 href=""><b><?=APP_NAME;?></b></h3>
+        <h3><b><?=APP_NAME;?></b></h3>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -37,7 +39,7 @@ include ('../app/config.php');
 
             <form action="controller_login.php" method="post">
                 <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -45,7 +47,7 @@ include ('../app/config.php');
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -57,26 +59,7 @@ include ('../app/config.php');
                     <button class="btn btn-primary btn-block" type="submit">Ingresar</button>
                 </div>
             </form>
-
-            <?php
-            session_start();
-            if(isset($_SESSION['mensaje'])){
-                $mensaje = $_SESSION['mensaje'];
-                ?>
-                <script>
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "error",
-                        title: "<?=$mensaje;?>",
-                        showConfirmButton: false,
-                        timer: 4000
-                    });
-                </script>
-            <?php
-                session_destroy();
-            }
-            ?>
-
+            <a href="recuperar_contraseña.php">Olvidé mi contraseña</a><br>
         </div>
         <!-- /.login-card-body -->
     </div>
@@ -91,3 +74,23 @@ include ('../app/config.php');
 <script src="<?=APP_URL;?>/public/dist/js/adminlte.min.js"></script>
 </body>
 </html>
+
+<?php
+if( (isset($_SESSION['mensaje'])) && (isset($_SESSION['icono']) )){
+    $mensaje = $_SESSION['mensaje'];
+    $icono = $_SESSION['icono'];
+    ?>
+    <script>
+        Swal.fire({
+            position: "center",
+            icon: "<?=$icono;?>",
+            title: "<?=$mensaje;?>",
+            showConfirmButton: false,
+            timer: 5000
+        });
+    </script>
+<?php
+    unset($_SESSION['mensaje']);
+    unset($_SESSION['icono']);
+}
+?>
