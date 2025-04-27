@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-                    <!--<li class="nav-item">
+                    <li class="nav-item">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas"><i class="bi bi-bookshelf"></i></i>
                             <p>
@@ -177,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
                         </ul>
-                    </li>-->
+                    </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link active">
@@ -238,6 +238,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <a href="<?=APP_URL;?>/admin/roles" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Listado</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas"><i class="bi bi-clipboard2-check-fill"></i></i>
+                            <p>
+                                Notas
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?=APP_URL;?>/admin/notas" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Libro de Notas</p>
                                 </a>
                             </li>
                         </ul>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2025 a las 16:17:33
+-- Tiempo de generación: 27-04-2025 a las 18:24:22
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,6 +34,32 @@ CREATE TABLE `administrativos` (
   `fyh_actualizacion` datetime DEFAULT NULL,
   `estado` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignacion`
+--
+
+CREATE TABLE `asignacion` (
+  `id_asignacion` int(11) NOT NULL,
+  `grado_id` int(11) NOT NULL,
+  `materia_id` int(11) NOT NULL,
+  `docente_id` int(11) NOT NULL,
+  `fyh_creacion` datetime DEFAULT NULL,
+  `fyh_actualizacion` datetime DEFAULT NULL,
+  `estado` varchar(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `asignacion`
+--
+
+INSERT INTO `asignacion` (`id_asignacion`, `grado_id`, `materia_id`, `docente_id`, `fyh_creacion`, `fyh_actualizacion`, `estado`) VALUES
+(1, 13, 3, 2, '2025-04-26 14:13:58', NULL, '1'),
+(2, 13, 4, 2, '2025-04-26 14:13:58', NULL, '1'),
+(3, 13, 10, 1, '2025-04-26 15:06:42', NULL, '1'),
+(4, 13, 11, 2, '2025-04-26 15:06:42', NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -102,6 +128,13 @@ CREATE TABLE `estudiantes` (
   `fyh_actualizacion` datetime DEFAULT NULL,
   `estado` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `estudiantes`
+--
+
+INSERT INTO `estudiantes` (`id_estudiante`, `persona_id`, `grado_id`, `extra_catedra`, `plantel_procedencia`, `estatura`, `peso`, `sexo`, `fyh_creacion`, `fyh_actualizacion`, `estado`) VALUES
+(1, 11, 13, NULL, '', '173', '74', NULL, '2025-04-26 16:35:38', NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -230,6 +263,35 @@ INSERT INTO `niveles` (`id_nivel`, `gestion_id`, `nivel`, `turno`, `fyh_creacion
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `notas`
+--
+
+CREATE TABLE `notas` (
+  `id_nota` int(11) NOT NULL,
+  `estudiante_id` int(11) NOT NULL,
+  `asignacion_id` int(11) NOT NULL,
+  `nota_1` int(3) DEFAULT NULL,
+  `nota_2` int(3) DEFAULT NULL,
+  `nota_3` int(3) DEFAULT NULL,
+  `nota_final` int(3) DEFAULT NULL,
+  `fyh_creacion` datetime DEFAULT NULL,
+  `fyh_actualizacion` datetime DEFAULT NULL,
+  `estado` varchar(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `notas`
+--
+
+INSERT INTO `notas` (`id_nota`, `estudiante_id`, `asignacion_id`, `nota_1`, `nota_2`, `nota_3`, `nota_final`, `fyh_creacion`, `fyh_actualizacion`, `estado`) VALUES
+(7, 1, 3, 2, 11, 0, 4, NULL, NULL, '111'),
+(12, 1, 4, 0, 12, 0, 4, NULL, NULL, '111'),
+(13, 1, 1, 0, 0, 1, 1, NULL, NULL, '000'),
+(14, 1, 2, 0, 2, 0, 1, NULL, NULL, '100');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `personas`
 --
 
@@ -265,7 +327,8 @@ CREATE TABLE `personas` (
 INSERT INTO `personas` (`id_persona`, `usuario_id`, `nombres`, `apellidos`, `ci`, `fecha_nacimiento`, `profesion`, `direccion`, `celular`, `patologia`, `alergia`, `condicion`, `tipo_sangre`, `discapacidad`, `descripcion_disc`, `talla_zapatos`, `talla_camisa`, `talla_pantalon`, `fecha_ingreso_ins`, `fyh_creacion`, `fyh_actualizacion`, `estado`) VALUES
 (1, 1, 'DALIOBERT ENRIQUE', 'TOYO AULAR', '27811140', '22/11/2000', 'ESTUDIANTE UPTAG', 'Urb Monseñor Iturriza III Etapa Calle 06 Casa #202', '04120868498', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2025-04-12 19:21:16', NULL, '1'),
 (2, 2, 'DOCENTE NO', 'ASIGNADO', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2025-04-20 18:19:48', NULL, '0'),
-(3, 4, 'PEDRO ', 'PEREZ', '1', '1111-11-11', '1', '1', '1', '', 'Polvo', '', '', '', '', '42', 'L', '36', '1111-12-11 00:00:00', '2025-04-22 08:34:46', NULL, '1');
+(3, 4, 'PEDRO ', 'PEREZ', '1', '1111-11-11', '1', '1', '1', '', 'Polvo', '', '', '', '', '42', 'L', '36', '1111-12-11 00:00:00', '2025-04-22 08:34:46', NULL, '1'),
+(11, 15, 'JESUS', 'GRATEROL', '22', '2025-04-02', 'ESTUDIANTE', 'SUCASA', '12', '', '', '', 'A-', '', NULL, '39', 'L', '36', '2025-04-26 00:00:00', '2025-04-26 16:35:38', NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -336,7 +399,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_usuario`, `rol_id`, `email`, `password`, `pregunta_1`, `respuesta_1`, `pregunta_2`, `respuesta_2`, `pregunta_3`, `respuesta_3`, `fyh_creacion`, `fyh_actualizacion`, `estado`) VALUES
 (1, 1, 'admin@admin.com', '$2y$10$0tYmdHU9uGCIxY1f90W1EuIm54NQ8axowkxL1WzLbqO2LdNa8m3l2', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-12 19:21:16', NULL, '1'),
 (2, 4, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-20 18:19:48', NULL, '0'),
-(4, 4, '1@1.com', '$2y$10$ply5pczb08QanJLCL1x9yeYok5Wz6H6l1lrmvsefiIWUp7Zy22Ypq', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-22 08:34:46', NULL, '1');
+(4, 4, '1@1.com', '$2y$10$ply5pczb08QanJLCL1x9yeYok5Wz6H6l1lrmvsefiIWUp7Zy22Ypq', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-22 08:34:46', NULL, '1'),
+(15, 5, 'mail@gmail.com', '$2y$10$tGP4qxZd5tkNj80gkToxqe..mMB6Ov93Uw41FHkhBDLc7xzfixtH2', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-26 16:35:38', NULL, '1');
 
 --
 -- Índices para tablas volcadas
@@ -348,6 +412,15 @@ INSERT INTO `usuarios` (`id_usuario`, `rol_id`, `email`, `password`, `pregunta_1
 ALTER TABLE `administrativos`
   ADD PRIMARY KEY (`id_administrativo`),
   ADD KEY `persona_id` (`persona_id`);
+
+--
+-- Indices de la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  ADD PRIMARY KEY (`id_asignacion`),
+  ADD KEY `grado_id` (`grado_id`),
+  ADD KEY `materia_id` (`materia_id`),
+  ADD KEY `docente_id` (`docente_id`);
 
 --
 -- Indices de la tabla `configuracion_instituciones`
@@ -397,6 +470,14 @@ ALTER TABLE `niveles`
   ADD KEY `gestion_id` (`gestion_id`);
 
 --
+-- Indices de la tabla `notas`
+--
+ALTER TABLE `notas`
+  ADD PRIMARY KEY (`id_nota`),
+  ADD KEY `estudiante_id` (`estudiante_id`),
+  ADD KEY `asignacion_id` (`asignacion_id`);
+
+--
 -- Indices de la tabla `personas`
 --
 ALTER TABLE `personas`
@@ -436,6 +517,12 @@ ALTER TABLE `administrativos`
   MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `configuracion_instituciones`
 --
 ALTER TABLE `configuracion_instituciones`
@@ -451,7 +538,7 @@ ALTER TABLE `docentes`
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `gestiones`
@@ -478,10 +565,16 @@ ALTER TABLE `niveles`
   MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `notas`
+--
+ALTER TABLE `notas`
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `ppffs`
@@ -499,7 +592,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
@@ -510,6 +603,14 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `administrativos`
   ADD CONSTRAINT `administrativos_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id_persona`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  ADD CONSTRAINT `asignacion_ibfk_1` FOREIGN KEY (`grado_id`) REFERENCES `grados` (`id_grado`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `asignacion_ibfk_2` FOREIGN KEY (`materia_id`) REFERENCES `materias` (`id_materia`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `asignacion_ibfk_3` FOREIGN KEY (`docente_id`) REFERENCES `docentes` (`id_docente`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `docentes`
@@ -535,6 +636,13 @@ ALTER TABLE `grados`
 --
 ALTER TABLE `niveles`
   ADD CONSTRAINT `niveles_ibfk_1` FOREIGN KEY (`gestion_id`) REFERENCES `gestiones` (`id_gestion`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `notas`
+--
+ALTER TABLE `notas`
+  ADD CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiantes` (`id_estudiante`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`asignacion_id`) REFERENCES `asignacion` (`id_asignacion`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `personas`

@@ -61,6 +61,7 @@ CREATE TABLE personas (
   apellidos          VARCHAR (50) NOT NULL,
   ci                 VARCHAR (20) NOT NULL,
   fecha_nacimiento   VARCHAR (20) NOT NULL,
+  fecha_ingreso_ins      DATE NOT NULL,
   profesion          VARCHAR (50) NOT NULL,
   direccion          VARCHAR (255) NOT NULL,
   celular            VARCHAR (20) NOT NULL,
