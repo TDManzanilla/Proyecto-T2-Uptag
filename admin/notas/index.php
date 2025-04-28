@@ -93,13 +93,15 @@ include('../../admin/layout/parte2.php');
 
     function cargarMaterias(seccion) {
         const selectMateria = document.getElementById('selectMateria');
+        const lapso = 1; // Asegúrate de definir el lapso aquí (puedes cambiarlo dinámicamente si es necesario)
+
         if (!seccion) {
             selectMateria.innerHTML = '<option value="">Seleccione una materia</option>';
             selectMateria.disabled = true;
             return;
         }
 
-        fetch(`../../app/controllers/notas/listado_secciones.php?action=getSubjects&seccion=${encodeURIComponent(seccion)}`)
+        fetch(`../../app/controllers/notas/listado_secciones.php?action=getSubjects&seccion=${encodeURIComponent(seccion)}&lapso=${lapso}`)
             .then(response => response.json())
             .then(data => {
                 if (!data.success) throw new Error(data.error);
@@ -138,26 +140,21 @@ include('../../admin/layout/parte2.php');
                     return;
                 }
 
-                let tieneNotasEditables = false;
-
                 data.estudiantes.forEach(estudiante => {
+                    const estado = estudiante.estado || '000'; // Estado en formato "111"
                     const fila = document.createElement('tr');
                     fila.innerHTML = `
                         <td>${estudiante.nombre_completo}</td>
                         <td>${estudiante.cedula}</td>
-                        <td><input type="number" class="form-control nota" data-id-nota="${estudiante.id_estudiante}" value="${estudiante.nota_1 || ''}" ${estudiante.estado_nota === '0' ? 'disabled' : ''}></td>
-                        <td><input type="number" class="form-control nota" data-id-nota="${estudiante.id_estudiante}" value="${estudiante.nota_2 || ''}" ${estudiante.estado_nota === '0' ? 'disabled' : ''}></td>
-                        <td><input type="number" class="form-control nota" data-id-nota="${estudiante.id_estudiante}" value="${estudiante.nota_3 || ''}" ${estudiante.estado_nota === '0' ? 'disabled' : ''}></td>
-                        <td><input type="number" class="form-control" value="${estudiante.nota_final || ''}" disabled></td>
+                        <td><input type="number" class="form-control" value="${estudiante.nota_1 || ''}" ${estado[0] === '0' ? 'readonly' : ''}></td>
+                        <td><input type="number" class="form-control" value="${estudiante.nota_2 || ''}" ${estado[1] === '0' ? 'readonly' : ''}></td>
+                        <td><input type="number" class="form-control" value="${estudiante.nota_3 || ''}" ${estado[2] === '0' ? 'readonly' : ''}></td>
+                        <td><input type="number" class="form-control" value="${estudiante.nota_final}" disabled></td>
                     `;
                     tablaEstudiantes.appendChild(fila);
-
-                    if (estudiante.estado_nota !== '0') {
-                        tieneNotasEditables = true;
-                    }
                 });
 
-                guardarNotasButton.disabled = !tieneNotasEditables;
+                guardarNotasButton.disabled = true; // Disable save button as editing is not allowed
             })
             .catch(error => {
                 console.error('Error al cargar los estudiantes:', error);

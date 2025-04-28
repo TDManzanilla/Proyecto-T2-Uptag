@@ -72,7 +72,7 @@ try {
             throw new Exception('Sección o materia no especificada.');
         }
 
-        // Obtener estudiantes y sus notas
+        // Obtener estudiantes, sus notas y estados
         $sqlEstudiantes = "
             SELECT 
                 e.id_estudiante,
@@ -80,7 +80,9 @@ try {
                 p.ci AS cedula,
                 n.nota_1,
                 n.nota_2,
-                n.nota_3
+                n.nota_3,
+                n.estado,
+                ROUND(GREATEST((IFNULL(n.nota_1, 0) + IFNULL(n.nota_2, 0) + IFNULL(n.nota_3, 0)) / 3, 1), 2) AS nota_final
             FROM estudiantes AS e
             INNER JOIN personas AS p ON e.persona_id = p.id_persona
             INNER JOIN grados AS g ON e.grado_id = g.id_grado
