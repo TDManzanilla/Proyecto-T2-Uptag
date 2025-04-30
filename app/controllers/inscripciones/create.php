@@ -90,6 +90,11 @@ try {
         ?><script>window.history.back();</script><?php
         exit;
     }
+// Validar existencia de asignaciones
+    $sentencia = $pdo->prepare('SELECT id_asignacion FROM asignacion WHERE grado_id = :grado_id');
+    $sentencia->bindParam(':grado_id', $grado_id);
+    $asignacion_id = $sentencia->execute();
+    
 
     // Iniciar transacción
     $pdo->beginTransaction();
@@ -148,6 +153,22 @@ try {
     if (!$sentencia->execute()) {
         throw new Exception("Error al insertar en la tabla estudiantes: " . implode(", ", $sentencia->errorInfo()));
     }
+
+    if ($asignacion_id) {
+        // Insertar una nueva nota
+
+        foreach ($asignacion_id as $asignaciones){
+        $sentencia = $pdo->prepare('INSERT INTO notas (estudiante_id, asignacion_id, fyh_creacion, estado) 
+                                    VALUES (:estudiante_id, :asignacion_id, :fyh_creacion, :estado)');
+        $sentencia->bindParam(':estudiante_id', $id_estudiante);
+        $sentencia->bindParam(':asignacion_id', $asignaciones);
+        $sentencia->bindParam(':fyh_creacion', $fechaHora);
+        $sentencia->bindParam(':estado', $estado_notas)
+
+        if (!$sentencia->execute()) {
+            throw new Exception("Error al asignar las materias: " . implode(", ", $sentencia->errorInfo()));
+        }}
+    }    
 
     // Confirmar transacción
     $pdo->commit();

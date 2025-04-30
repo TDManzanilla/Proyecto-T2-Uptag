@@ -429,3 +429,11 @@ CREATE TABLE notas (
   on delete no action on update cascade
   
   )ENGINE=InnoDB;
+
+CREATE TABLE bitacora (
+  id_bitacora       INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  usuario_id        INT (11) NOT NULL,
+  descripcion       TEXT NOT NULL,
+  fecha_hora        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios (id_usuario) ON DELETE CASCADE
+) ENGINE=InnoDB;

@@ -21,6 +21,7 @@ try{
 }
 
 date_default_timezone_set("America/Caracas");
+$fechahora = date('Y-m-d H:i:s');
 $fechaHora = date('Y-m-d H:i:s');
 
 $fecha_actual = date('Y-m-d');
@@ -29,5 +30,6 @@ $mes_actual = date('m');
 $ano_actual = date('Y');
 
 $estado_de_registro = '1';
+$estado_notas = '100';
 
 //require APP_PATH.'vendor/autoload.php';
