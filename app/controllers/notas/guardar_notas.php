@@ -27,6 +27,7 @@ try {
             FROM asignacion AS a
             INNER JOIN grados AS g ON a.grado_id = g.id_grado
             INNER JOIN estudiantes AS e ON e.grado_id = g.id_grado
+            INNER JOIN materias AS m ON a.materia_id = m.id_materia
             WHERE a.materia_id = :materia_id
             LIMIT 1
         ";
@@ -77,8 +78,8 @@ try {
         } 
         $i++;
     }
-    $usuario_id = 1;
-    $descripcion = 'Actualizacion de notas';
+    $usuario_id = $_SESSION['session_user'];
+    $descripcion = 'Actualizacion de notas de la seccion:' + $asignacion['curso'] + '-' + $asignacion['paralelo'] + ' Materia:' + $asignacion['nombre_materia'] + ' Estudiante:' + $asignacion['nombre'] + ' ' + $asignacion['apellido'];
     // Log the action
         $sql = "INSERT INTO bitacora (usuario_id, descripcion, fecha_hora)
         VALUES (:usuario_id, :descripcion, :fecha_hora)";

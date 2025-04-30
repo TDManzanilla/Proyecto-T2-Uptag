@@ -6,7 +6,7 @@ $sql_estudiantes = "SELECT * FROM usuarios as usu
                 INNER JOIN estudiantes as est ON est.persona_id = per.id_persona
                 INNER JOIN grados as gra ON gra.id_grado = est.grado_id
                 INNER JOIN niveles as niv ON niv.id_nivel = gra.nivel_id
-                INNER JOIN ppffs as ppff ON ppff.estudiantes_id = est.id_estudiante
+                INNER JOIN nucleo_familiar as nc ON nc.id_ncff = est.nucleo_familiar_id
                 where est.estado = '1'";
 $query_estudiantes = $pdo->prepare($sql_estudiantes);
 $query_estudiantes->execute();

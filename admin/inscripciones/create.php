@@ -43,24 +43,22 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                 <?php }
             }
             ?>
-            <a href="<?=APP_URL;?>/admin/roles/create.php" style="margin-left: 5px" class="btn btn-primary">
-                <i class="bi bi-file-plus"></i>
-            </a>
         </div>
     </div>
 </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="">Nombres</label>
-                                            <input type="text" name="nombres" class="form-control" required>
-                                        </div>
-                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Apellidos</label>
                                             <input type="text" name="apellidos" class="form-control" required>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Nombres</label>
+                                            <input type="text" name="nombres" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Cedula de Identidad</label>
@@ -81,33 +79,30 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                             <input type="number" name="celular" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Cargo</label>
                                             <input type="text" name="profesion" class="form-control" value="ESTUDIANTE" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="sexo">Sexo</label>
                                             <select name="sexo" id="sexo" class="form-control">
                                                 <option value="masculino">Masculino</option>
                                                 <option value="femenino">Femenino</option>
-                                                <option value="prefiero no responder">Prefiero no decir</option>
-                                                <option value="otro">Otro</option>
-                                            </select>
-                                            <input type="text" name="descripcion_disc" id="descripcion_disc" class="form-control mt-2" placeholder="Descripción" style="display: none;" disabled>
+                                                </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Email</label>
                                             <input type="email" name="email" class="form-control" required>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="">Direccion</label>
                                             <input type="text" name="direccion" class="form-control" required>
@@ -124,7 +119,7 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Niveles</label>
                                             <div class="form-inline">
@@ -143,7 +138,7 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Grados</label>
                                             <div class="form-inline">
@@ -158,21 +153,18 @@ include ('../../app/controllers/grados/listado_de_grados.php')
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Plantel de Procedencia</label>
                                             <input type="text" name="plantel_procedencia" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Fecha de Ingreso a la Institución</label>
                                             <input type="date" name="fecha_ingreso_ins" class="form-control" required>
                                         </div>
                                     </div>
-                                </div>
                                 <hr>
                             </div>
                         </div>

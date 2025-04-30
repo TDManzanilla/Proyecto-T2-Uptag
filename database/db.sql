@@ -61,7 +61,6 @@ CREATE TABLE personas (
   apellidos          VARCHAR (50) NOT NULL,
   ci                 VARCHAR (20) NOT NULL,
   fecha_nacimiento   VARCHAR (20) NOT NULL,
-  fecha_ingreso_ins      DATE NOT NULL,
   profesion          VARCHAR (50) NOT NULL,
   direccion          VARCHAR (255) NOT NULL,
   celular            VARCHAR (20) NOT NULL,
@@ -242,52 +241,10 @@ VALUES ('1','QUINTO AÑO','B',NOW(),'1');
 INSERT INTO grados (nivel_id,curso,paralelo,fyh_creacion,estado)
 VALUES ('1','QUINTO AÑO','C',NOW(),'1');
 
-CREATE TABLE estudiantes (
-
-  id_estudiante          INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  persona_id             INT (11) NOT NULL,
-  grado_id               INT (11) NOT NULL,
-  extra_catedra          VARCHAR (55),
-  plantel_procedencia    VARCHAR (255),
-  estatura               VARCHAR (15),
-  peso                   VARCHAR (15),
-  sexo                   VARCHAR (50),
-
-  fyh_creacion           DATETIME NULL,
-  fyh_actualizacion      DATETIME NULL,
-  estado                 VARCHAR (11),
-
-  FOREIGN KEY (persona_id) 
-  REFERENCES personas (id_persona) 
-  on delete no action on update cascade,
-
-  FOREIGN KEY (grado_id) 
-  REFERENCES grados (id_grado) 
-  on delete no action on update cascade
-
-)ENGINE=InnoDB;
-
-CREATE TABLE ppffs (
-
-  id_ppff                        INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  estudiantes_id                 INT (11) NOT NULL,
-  parentesco_nucleo              INT (1) NOT NULL,
-
-  fyh_creacion                   DATETIME NULL,
-  fyh_actualizacion              DATETIME NULL,
-  estado                         VARCHAR (11),
-
-  FOREIGN KEY (estudiantes_id) 
-  REFERENCES estudiantes (id_estudiante) 
-  on delete no action on update cascade
-
-)ENGINE=InnoDB;
-
 CREATE TABLE nucleo_familiar (
-
   id_ncff                        INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nuclestudiante_id              INT (11) NOT NULL,
-
+  
+  representante                  VARCHAR (25) NOT NULL,
   nombres_apellidos_padre        VARCHAR (255),
   ci_padre                       VARCHAR (20),
   celular_padre                  VARCHAR (20),
@@ -309,12 +266,38 @@ CREATE TABLE nucleo_familiar (
 
   fyh_creacion                   DATETIME NULL,
   fyh_actualizacion              DATETIME NULL,
-  estado                         VARCHAR (11),
+  estado                         VARCHAR (11)
 
-  FOREIGN KEY (nuclestudiante_id) 
-  REFERENCES estudiantes (id_estudiante) 
+)ENGINE=InnoDB;
+
+CREATE TABLE estudiantes (
+
+  id_estudiante          INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  persona_id             INT (11) NOT NULL,
+  grado_id               INT (11) NOT NULL,
+  nucleo_familiar_id     INT (11) NOT NULL,
+
+  extra_catedra          VARCHAR (55),
+  plantel_procedencia    VARCHAR (255),
+  estatura               VARCHAR (15),
+  peso                   VARCHAR (15),
+  sexo                   VARCHAR (50),
+
+  fyh_creacion           DATETIME NULL,
+  fyh_actualizacion      DATETIME NULL,
+  estado                 VARCHAR (11),
+
+  FOREIGN KEY (persona_id) 
+  REFERENCES personas (id_persona) 
+  on delete no action on update cascade,
+
+  FOREIGN KEY (grado_id) 
+  REFERENCES grados (id_grado) 
+  on delete no action on update cascade,
+
+  FOREIGN KEY (nucleo_familiar_id)
+  REFERENCES nucleo_familiar (id_ncff)
   on delete no action on update cascade
-
 )ENGINE=InnoDB;
 
 CREATE TABLE materias (

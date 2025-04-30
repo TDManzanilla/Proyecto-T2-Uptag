@@ -30,6 +30,7 @@ if (!$user) {
         //$_SESSION['mensaje'] = 'Bienvenido al sistema!';
         //$_SESSION['icono'] = 'success';
         $_SESSION['sesion_email'] = $email_log;
+        $_SESSION['session_user'] = $user['id_usuario'];
         header('Location:../admin/index.php');
         exit();
     } else {
