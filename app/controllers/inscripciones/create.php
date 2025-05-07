@@ -272,19 +272,19 @@ try {
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    $usuario_id = $_SESSION['id_usuario'];
+    //$usuario_id = $_SESSION['id_usuario'];
     
-    $descripcion = 'Registro de estudiante: ' . $nombres . ' ' . $apellidos; // Corregido el operador de concatenación
+    //$descripcion = 'Registro de estudiante: ' . $nombres . ' ' . $apellidos; // Corregido el operador de concatenación
     // Log the action
-        $sql = "INSERT INTO bitacora (usuario_id, descripcion, fecha_hora)
-        VALUES (:usuario_id, :descripcion, :fecha_hora)";
-        $sentencia = $pdo->prepare($sql);
-        $sentencia->bindParam(':usuario_id',$usuario_id);
-        $sentencia->bindParam(':descripcion',$descripcion);
-        $sentencia->bindParam(':fecha_hora',$fechaHora);
-        if (!$sentencia->execute()) {
-            throw new Exception("Error al designar el reporte: " . implode(", ", $sentencia->errorInfo()));
-        }
+    //    $sql = "INSERT INTO bitacora (usuario_id, descripcion, fecha_hora)
+    //    VALUES (:usuario_id, :descripcion, :fecha_hora)";
+    //    $sentencia = $pdo->prepare($sql);
+    //    $sentencia->bindParam(':usuario_id',$usuario_id);
+    //    $sentencia->bindParam(':descripcion',$descripcion);
+    //    $sentencia->bindParam(':fecha_hora',$fechaHora);
+    //    if (!$sentencia->execute()) {
+    //        throw new Exception("Error al designar el reporte: " . implode(", ", $sentencia->errorInfo()));
+    //    }
 
 
     // Confirmar transacción

@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
+                <!--<a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
                     <span class="badge badge-warning navbar-badge">15</span>
                 </a>
@@ -89,18 +89,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
+                </div>-->
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                     <i class="fas fa-th-large"></i>
                 </a>
-            </li>
+            </li>-->
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -143,8 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?=APP_URL;?>/admin/configuraciones/institucion/show.php?id=1" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                            <a href="<?=APP_URL;?>/admin/configuraciones/institucion/show.php?id=1" class="nav-link">                                    <i class="far fa-circle nav-icon"></i>
                                     <p>Datos de la Institución</p>
                                 </a>
                             </li>
@@ -161,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas"><i class="bi bi-bookshelf"></i></i>
                             <p>
@@ -177,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
 
                     <li class="nav-item">
                         <a href="#" class="nav-link active">

@@ -5,7 +5,7 @@ include ('../../../../app/config.php');
 $gestion = $_POST['gestion'];
 $estado = $_POST['estado'];
 if($estado=="ACTIVO"){
-    $estado = 1;
+    $estado = $estado_de_registro;
 }else{
     $estado = 0;
 }
@@ -20,11 +20,11 @@ $sentencia->bindParam('estado',$estado);
 
 if($sentencia->execute()){
     //echo 'success';
-    echo 'success';
+    //echo 'success';
     session_start();
     $_SESSION['mensaje'] = "Se registro la gestión educativa de la manera correcta en la base de datos";
     $_SESSION['icono'] = "success";
-    header('Location:'.APP_URL."/app/controllers/niveles/create.php?id=".$pdo->lastInsertId());
+    header('Location:'.APP_URL."/app/controllers/niveles/create.php?id=".$pdo->lastInsertId()."&estado=".$estado);
 
 }else{
     echo 'error al registrar a la base de datos';

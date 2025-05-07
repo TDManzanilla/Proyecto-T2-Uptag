@@ -49,7 +49,7 @@ include ('../../app/controllers/configuraciones/gestion/listado_de_gestiones.php
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Niveles</label>
@@ -72,7 +72,7 @@ include ('../../app/controllers/configuraciones/gestion/listado_de_gestiones.php
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">

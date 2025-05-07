@@ -62,8 +62,13 @@ include(APP_PATH . 'admin/layout/parte2.php');
     });
 
     function cargarSecciones() {
-        fetch('../../../app/controllers/docentes/asignaciones/listado_materias_por_seccion.php')
-            .then(response => response.json())
+        fetch('../../../app/controllers/docentes/asignaciones/listado_secciones.php') // Cambié la URL al archivo correcto
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
             .then(data => {
                 const selectSeccion = document.getElementById('selectSeccion');
                 selectSeccion.innerHTML = '<option value="">Seleccione una sección</option>';

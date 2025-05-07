@@ -79,7 +79,13 @@ include('../../admin/layout/parte2.php');
             }
         });
 
-        document.getElementById('guardarNotas').addEventListener('click', guardarNotas);
+        document.getElementById('guardarNotas').addEventListener('click', function (e) {
+            if (!validarNotas()) {
+                e.preventDefault(); // Detener el envío si hay errores
+            } else {
+                guardarNotas(); // Proceder a guardar si todo es válido
+            }
+        });
     });
 
     function cargarSecciones() {
@@ -148,21 +154,24 @@ include('../../admin/layout/parte2.php');
                     return;
                 }
 
+                let i = 1; // Inicializa el contador aquí
                 data.estudiantes.forEach(estudiante => {
                     const estado = estudiante.estado || '000'; // Estado en formato "111"
                     const fila = document.createElement('tr');
-                    var i = 1;
                     fila.innerHTML = `
                         <td>${estudiante.nombre_completo}
                         <input type="hidden" id="id_nota-${i}" value="${estudiante.id_nota}">
                         </td>
-                        <td>${estudiante.cedula}</td>
-                        <td><input type="number" class="form-control" id="nota_1-${i}" value="${estudiante.nota_1 || ''}" ${estado[0] === '0'}></td>
-                        <td><input type="number" class="form-control" id="nota_2-${i}" value="${estudiante.nota_2 || ''}" ${estado[1] === '0'}></td>
-                        <td><input type="number" class="form-control" id="nota_3-${i}" value="${estudiante.nota_3 || ''}" ${estado[2] === '0'}></td>
+                        <td>${estudiante.cedula}
+                        <input type="hidden" id="id_estudiante${i}" value="${estudiante.id_estudiante}">
+                        </td>
+                        <td><input type="number" class="form-control" id="nota_1-${i}" value="${estudiante.nota_1 || ''}" ${estado[0] === '0' ? 'readonly' : ''}></td>
+                        <td><input type="number" class="form-control" id="nota_2-${i}" value="${estudiante.nota_2 || ''}" ${estado[1] === '0' ? 'readonly' : ''}></td>
+                        <td><input type="number" class="form-control" id="nota_3-${i}" value="${estudiante.nota_3 || ''}" ${estado[2] === '0' ? 'readonly' : ''}></td>
                         <td><input type="number" class="form-control" id="nota_final-${i}" value="${estudiante.nota_final}" readonly></td>
                     `;
                     tablaEstudiantes.appendChild(fila);
+                    i++; // Incrementa el contador
                 });
 
                 guardarNotasButton.disabled = !(seccion && materia_id); // Enable button only if both are selected
@@ -175,43 +184,54 @@ include('../../admin/layout/parte2.php');
 
     function guardarNotas() {
         const notas = [];
-        const tabla = document.getElementById('tablaEstudiantes')
-        var filas = tabla.rows.length
-        let isValid = true;
-        for(var i = 1; i<= filas; i++){
-            const idNota = document.getElementById('id_nota-'+i).value;
-            const nota_1 = document.getElementById('nota_1-'+i).value;
-            const nota_2 = document.getElementById('nota_2-'+i).value;
-            const nota_3 = document.getElementById('nota_3-'+i).value;
-            const nota_final = document.getElementById('nota_final-'+i).value;
+        const tabla = document.getElementById('tablaEstudiantes');
+        const filas = tabla.rows.length;
+
+        for (let i = 1; i <= filas; i++) {
+            const idNotaElement = document.getElementById('id_nota-' + i);
+            const idEstudianteElement = document.getElementById('id_estudiante' + i);
+            const nota1Element = document.getElementById('nota_1-' + i);
+            const nota2Element = document.getElementById('nota_2-' + i);
+            const nota3Element = document.getElementById('nota_3-' + i);
+            const notaFinalElement = document.getElementById('nota_final-' + i);
+
+            // Verifica si los elementos existen
+            if (!idNotaElement || !nota1Element || !nota2Element || !nota3Element || !notaFinalElement) {
+                console.warn(`Elementos faltantes para la fila ${i}`);
+                continue; // Salta a la siguiente iteración si algún elemento falta
+            }
+
+            const idNota = idNotaElement.value;
+            const idEstudiante = idEstudianteElement.value;
             const materia_id = document.getElementById('selectMateria').value;
 
-            const idNota_key ='id_nota-'+i;
-            const estado_key ='estado-'+i;
-            const nota_1_key ='nota_1-'+i;
-            const nota_2_key ='nota_2-'+i;
-            const nota_3_key = 'nota_3-'+i;
-            const nota_final_key ='nota_final-'+i;
-               notas.push({
-                        [idNota_key]: idNota,
-                        materia_id:materia_id,
-                        [nota_1_key]: nota_1,
-                        [nota_2_key]: nota_2,
-                        [nota_3_key]: nota_3,
-                        [nota_final_key]: nota_final,
-                    });
+            // Si el campo está deshabilitado, conserva su valor original
+            const nota_1 = nota1Element.hasAttribute('readonly') ? nota1Element.value : nota1Element.value;
+            const nota_2 = nota2Element.hasAttribute('readonly') ? nota2Element.value : nota2Element.value;
+            const nota_3 = nota3Element.hasAttribute('readonly') ? nota3Element.value : nota3Element.value;
+            const nota_final = notaFinalElement.value; // Nota final siempre es readonly
 
+            notas.push({
+                [`id_nota-${i}`]: idNota,
+                [`id_estudiante-${i}`]: idEstudiante,
+                materia_id: materia_id,
+                [`nota_1-${i}`]: nota_1,
+                [`nota_2-${i}`]: nota_2,
+                [`nota_3-${i}`]: nota_3,
+                [`nota_final-${i}`]: nota_final,
+            });
         }
 
-        console.log(notas)
+        console.log(notas);
+        console.log(JSON.stringify({ notas }));
         fetch('../../app/controllers/notas/guardar_notas.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ notas })
+            body: JSON.stringify({ notas }),
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                console.log(data);
                 if (data.success) {
                     Swal.fire('Éxito', data.message, 'success');
                     cargarEstudiantes(document.getElementById('selectSeccion').value, document.getElementById('selectMateria').value);
@@ -223,5 +243,27 @@ include('../../admin/layout/parte2.php');
                 console.error('Error al guardar las notas:', error);
                 Swal.fire('Error', 'Hubo un error al guardar las notas.', 'error');
             });
+    }
+
+    function validarNotas() {
+        const inputs = document.querySelectorAll('input[type="number"]');
+        for (const input of inputs) {
+            // Omitir validación si el campo está deshabilitado (readonly)
+            if (input.hasAttribute('readonly')) {
+                continue;
+            }
+
+            const valor = parseFloat(input.value);
+            if (isNaN(valor) || valor < 0 || valor > 20) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Valor inválido',
+                    text: `El valor ingresado en el campo ${input.id} no es válido. Debe ser un número entre 0 y 20.`,
+                    confirmButtonText: 'Aceptar'
+                });
+                return false; // Detener la validación si hay un error
+            }
+        }
+        return true; // Si todo es válido, continuar
     }
 </script>

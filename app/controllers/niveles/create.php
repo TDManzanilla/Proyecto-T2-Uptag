@@ -5,6 +5,7 @@ include ('../../../app/config.php');
 $gestion_id = $_GET['id'];
 $nivel = 'MEDIA GENERAL';
 $turno = 'MAÑANA';
+$estado = $_GET['estado'];
 
 $sentencia = $pdo->prepare('INSERT INTO niveles
 (gestion_id,nivel,turno, fyh_creacion, estado)
@@ -14,7 +15,7 @@ $sentencia->bindParam(':gestion_id',$gestion_id);
 $sentencia->bindParam(':nivel',$nivel);
 $sentencia->bindParam(':turno',$turno);
 $sentencia->bindParam('fyh_creacion',$fechaHora);
-$sentencia->bindParam('estado',$estado_de_registro);
+$sentencia->bindParam('estado',$estado);
 
 if($sentencia->execute()){
     //echo 'success';

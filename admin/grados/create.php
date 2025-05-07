@@ -45,12 +45,6 @@ include ('../../app/controllers/niveles/listado_de_niveles.php');
                                         <div class="form-group">
                                             <label for="">Curso</label>
                                             <select name="curso" id="" class="form-control">
-                                                <option value="PRIMER GRADO">1ER GRADO</option>
-                                                <option value="SEGUNDO GRADO">2DO GRADO</option>
-                                                <option value="TERCER GRADO">3ER GRADO</option>
-                                                <option value="CUARTO GRADO">4TO GRADO</option>
-                                                <option value="QUINTO GRADO">5TO GRADO</option>
-                                                <option value="SEXTO GRADO">6TO GRADO</option>
                                                 <option value="PRIMER AÑO">1ER AÑO</option>
                                                 <option value="SEGUNDO AÑO">2DO AÑO</option>
                                                 <option value="TERCER AÑO">3ER AÑO</option>

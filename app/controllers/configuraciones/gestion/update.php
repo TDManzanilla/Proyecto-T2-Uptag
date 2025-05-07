@@ -7,7 +7,7 @@ $gestion = $_POST['gestion'];
 $estado = $_POST['estado'];
 
 if($estado=="ACTIVO"){
-    $estado = 1;
+    $estado = $estado_de_registro;
 }else{
     $estado = 0;
 }
@@ -25,13 +25,12 @@ $sentencia->bindParam('id_gestion',$id_gestion);
 
 if($sentencia->execute()){
     //echo 'success';
-    echo 'success';
+    
     session_start();
     $_SESSION['mensaje'] = "Se actualizó la gestión educativa de la manera correcta en la base de datos";
     $_SESSION['icono'] = "success";
-    header('Location:'.APP_URL."/admin/configuraciones/gestion");
-//header('Location:' .$URL.'/');
-}else{
+    header('Location:'.APP_URL."/app/controllers/niveles/update.php?&id=".$id_gestion."&estado=".$estado);
+    }else{
     echo 'error al registrar a la base de datos';
     session_start();
     $_SESSION['mensaje'] = "Error no se pudo actualizar en la base datos, comuniquese con el administrador";

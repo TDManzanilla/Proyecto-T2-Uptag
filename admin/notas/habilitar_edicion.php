@@ -46,6 +46,11 @@ include(APP_PATH . 'admin/layout/parte1.php');
                     </table>
                 </div>
             </div>
+            <div class="row mt-4">
+                <div class="col-md-12 text-left">
+                    <a href="<?=APP_URL?>admin/notas" class="btn btn-primary">Volver</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

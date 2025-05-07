@@ -122,7 +122,7 @@ CREATE TABLE docentes (
 )ENGINE=InnoDB;
 
 INSERT INTO docentes (persona_id,fyh_creacion,estado)
-VALUES ('1',NOW(),'0');
+VALUES ('2',NOW(),'0');
 
 CREATE TABLE configuracion_instituciones (
 
